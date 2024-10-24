@@ -45,6 +45,7 @@
     "@angular/language-service": "16.2.12",
     "@types/node": "^8.10.59",
     "@types/sortablejs": "1.15.0",
+    "cpr": "^3.0.1",
     "ng-packagr": "^16.2.3",
     "ts-node": "~7.0.0",
     "tsickle": "^0.39.1",
