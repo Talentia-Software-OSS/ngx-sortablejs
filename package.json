@@ -43,12 +43,11 @@
     "@angular/cli": "16.2.16",
     "@angular/compiler-cli": "16.2.12",
     "@angular/language-service": "16.2.12",
-    "@types/node": "^8.10.59",
+    "@types/node": "18.19.64",
     "@types/sortablejs": "1.15.0",
     "cpr": "^3.0.1",
     "ng-packagr": "^16.2.3",
     "ts-node": "~7.0.0",
-    "tsickle": "^0.39.1",
     "tslint": "~6.1.3",
     "typescript": "~4.9.5"
   }
