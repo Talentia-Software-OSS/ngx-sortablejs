@@ -35,21 +35,18 @@ const getIndexesFromEvent = (event: SortableEvent) => {
 };
 
 @Directive({
+  standalone: false,
   selector: '[sortablejs]',
 })
 export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
 
-  @Input()
-  sortablejs: SortableData; // array or a FormArray
+  @Input() sortablejs: SortableData; // array or a FormArray
 
-  @Input()
-  sortablejsContainer: string;
+  @Input() sortablejsContainer?: string;
 
-  @Input()
-  sortablejsOptions: Options;
+  @Input() sortablejsOptions?: Options;
 
-  @Input()
-  sortablejsCloneFunction: (item: any) => any;
+  @Input() sortablejsCloneFunction?: (item: any) => any;
 
   private sortableInstance: any;
 
@@ -65,17 +62,17 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    if (Sortable && Sortable.create) { // Sortable does not exist in angular universal (SSR)
+    if (Sortable && typeof Sortable.create === 'function') { // Sortable does not exist in angular universal (SSR)
       this.create();
     }
   }
 
   ngOnChanges(changes: { [prop in keyof SortablejsDirective]: SimpleChange }) {
-    const optionsChange: SimpleChange = changes.sortablejsOptions;
+    const optionsChange: SimpleChange | undefined = changes.sortablejsOptions;
 
     if (optionsChange && !optionsChange.isFirstChange()) {
-      const previousOptions: Options = optionsChange.previousValue;
-      const currentOptions: Options = optionsChange.currentValue;
+      const previousOptions = optionsChange.previousValue;
+      const currentOptions = optionsChange.currentValue;
 
       Object.keys(currentOptions).forEach(optionName => {
         if (currentOptions[optionName] !== previousOptions[optionName]) {
@@ -111,11 +108,11 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private get options() {
+  private get options(): any {
     return {...this.optionsWithoutEvents, ...this.overridenOptions};
   }
 
-  private get optionsWithoutEvents() {
+  private get optionsWithoutEvents(): any {
     return {...(this.globalConfig || {}), ...(this.sortablejsOptions || {})};
   }
 
@@ -127,7 +124,7 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  private get isCloning() {
+  private get isCloning(): boolean {
     return this.sortableInstance.options.group.checkPull(this.sortableInstance, this.sortableInstance) === 'clone';
   }
 
@@ -139,8 +136,10 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
   private get overridenOptions(): Options {
     // always intercept standard events but act only in case items are set (bindingEnabled)
     // allows to forget about tracking this.items changes
+    // ((event: SortableEvent) => void) | undefined
     return {
-      onAdd: (event: SortableEvent) => {
+      onAdd: (evt: any) => {
+        const event = evt as SortableEvent;
         this.service.transfer = (items: any[]) => {
           this.getBindings().injectIntoEvery(event.newIndex, items);
           this.proxyEvent('onAdd', event);
@@ -148,12 +147,14 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
 
         this.proxyEvent('onAddOriginal', event);
       },
-      onRemove: (event: SortableEvent) => {
-        const bindings = this.getBindings();
-
+      onRemove: (evt: any) => {
+        const event = evt as SortableEvent;
+        const bindings = this.getBindings();        
         if (bindings.provided) {
           if (this.isCloning) {
-            this.service.transfer(bindings.getFromEvery(event.oldIndex).map(item => this.clone(item)));
+            if (this.service.transfer) {
+              this.service.transfer(bindings.getFromEvery(event.oldIndex).map(item => this.clone(item)));
+            }
 
             // great thanks to https://github.com/tauu
             // event.item is the original item from the source list which is moved to the target list
@@ -167,15 +168,18 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
             this.renderer.insertBefore(event.clone.parentNode, event.item, event.clone);
             this.renderer.removeChild(event.clone.parentNode, event.clone);
           } else {
-            this.service.transfer(bindings.extractFromEvery(event.oldIndex));
+            if (this.service.transfer) {
+              this.service.transfer(bindings.extractFromEvery(event.oldIndex));
+            }
           }
 
-          this.service.transfer = null;
+          this.service.transfer = undefined;
         }
 
         this.proxyEvent('onRemove', event);
       },
-      onUpdate: (event: SortableEvent) => {
+      onUpdate: (evt: any) => {
+        const event = evt as SortableEvent;
         const bindings = this.getBindings();
         const indexes = getIndexesFromEvent(event);
 

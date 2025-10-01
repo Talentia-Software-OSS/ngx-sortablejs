@@ -5,7 +5,7 @@ export class SortablejsBinding {
   constructor(private target: SortableData) {
   }
 
-  insert(index: number, item: any) {
+  insert(index: number | undefined, item: any): void {
     if (this.isFormArray) {
       this.target.insert(index, item);
     } else {
@@ -13,11 +13,15 @@ export class SortablejsBinding {
     }
   }
 
-  get(index: number) {
+  get(index: number | undefined): any {
+    if (index === undefined || index === null) {
+      return undefined;
+    }
+    
     return this.isFormArray ? this.target.at(index) : this.target[index];
   }
 
-  remove(index: number) {
+  remove(index: number | undefined): any {
     let item;
 
     if (this.isFormArray) {
@@ -32,7 +36,7 @@ export class SortablejsBinding {
 
   // we need this to identify that the target is a FormArray
   // we don't want to have a dependency on @angular/forms just for that
-  private get isFormArray() {
+  private get isFormArray(): boolean {
     // just checking for random FormArray methods not available on a standard array
     return !!this.target.at && !!this.target.insert && !!this.target.reset;
   }
