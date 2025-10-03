@@ -16,11 +16,11 @@ Actually everything can be sortable.
 <h2 class="mt-4 mb-3">Button groups</h2>
 
 <div class="clearfix">
-  <div class="btn-group-vertical float-left" [sortablejs]="cities">
+  <div class="btn-group-vertical float-start" [sortablejs]="cities">
     <button type="button" class="btn btn-secondary" *ngFor="let city of cities">{{ city }}</button>
   </div>
 
-  <div class="btn-group ml-3" [sortablejs]="cities">
+  <div class="btn-group ms-3" [sortablejs]="cities">
     <button type="button" class="btn btn-secondary" *ngFor="let city of cities">{{ city }}</button>
   </div>
 </div>
@@ -40,7 +40,7 @@ Actually everything can be sortable.
 
 <ul class="nav nav-pills mb-3" [sortablejs]="cities">
   <li class="nav-item" *ngFor="let city of cities">
-    <a class="nav-link active mr-1">{{ city }}</a>
+    <a class="nav-link active me-1">{{ city }}</a>
   </li>
 </ul>
 

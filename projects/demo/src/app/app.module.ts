@@ -13,10 +13,7 @@ import { ExamplesModule } from './examples/examples.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // global settings
-    SortablejsModule.forRoot({
-      animation: 200
-    }),
+    SortablejsModule.forRoot({ animation: 200 }),
     BsDropdownModule.forRoot(),
     ExamplesModule
   ],
