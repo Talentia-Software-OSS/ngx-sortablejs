@@ -9,9 +9,6 @@
     "@angular/core": "^18.0.0",
     "sortablejs": "~1.15.0"
   },
-  "devDependencies": {
-    "@types/sortablejs": "~1.15.0"
-  },
   "sideEffects": false,
   "author": {
     "name": "Leonardo Cavone",
