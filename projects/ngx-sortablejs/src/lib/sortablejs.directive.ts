@@ -13,7 +13,7 @@ import {
   Renderer2,
   SimpleChange,
 } from '@angular/core';
-import Sortable, {Options} from 'sortablejs';
+import Sortable, {Options, SortableEvent} from 'sortablejs';
 import {GLOBALS} from './globals';
 import {SortablejsBindings} from './sortablejs-bindings';
 import {SortablejsService} from './sortablejs.service';
@@ -21,7 +21,7 @@ import {SortablejsService} from './sortablejs.service';
 export type SortableData = any | any[];
 
 const getIndexesFromEvent = (event: SortableEvent) => {
-  if (event.hasOwnProperty('newDraggableIndex') && event.hasOwnProperty('oldDraggableIndex')) {
+  if (Object.prototype.hasOwnProperty.call(event, 'newDraggableIndex') && Object.prototype.hasOwnProperty.call(event, 'oldDraggableIndex')) {
     return {
       new: event.newDraggableIndex,
       old: event.oldDraggableIndex,
@@ -35,6 +35,7 @@ const getIndexesFromEvent = (event: SortableEvent) => {
 };
 
 @Directive({
+  standalone: false,
   selector: '[sortablejs]',
 })
 export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
@@ -65,7 +66,7 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    if (Sortable && Sortable.create) { // Sortable does not exist in angular universal (SSR)
+    if (Sortable && 'create' in Sortable) { // Sortable does not exist in angular universal (SSR)
       this.create();
     }
   }
@@ -170,7 +171,7 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
             this.service.transfer(bindings.extractFromEvery(event.oldIndex));
           }
 
-          this.service.transfer = null;
+          this.service.transfer = () => {};
         }
 
         this.proxyEvent('onRemove', event);
@@ -185,13 +186,4 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
     };
   }
 
-}
-
-interface SortableEvent {
-  oldIndex: number;
-  newIndex: number;
-  oldDraggableIndex?: number;
-  newDraggableIndex?: number;
-  item: HTMLElement;
-  clone: HTMLElement;
 }
