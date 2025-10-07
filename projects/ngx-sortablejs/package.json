@@ -1,27 +1,27 @@
 {
   "name": "@talentia/ngx-sortablejs",
-  "version": "11.1.4",
-  "keywords": [
-    "ngx-sortablejs",
-    "angular-sortablejs",
-    "sortablejs",
-    "angular",
-    "sortable",
-    "draggable"
-  ],
-  "author": "smnbbrv",
+  "title": "Angular sortablejs",
+  "description": "Angular wrapper for SortableJS",
+  "version": "11.1.5",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sortablejs/ngx-sortablejs"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
+  "licenseFilename": "LICENSE",
   "peerDependencies": {
-    "@angular/common": "^17.0.0",
-    "@angular/core": "^17.0.0",
-    "sortablejs": ">=1.15.0"
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "sortablejs": "~1.15.0"
   },
-  "main": "src/public-api.ts"
+  "sideEffects": false,
+  "author": {
+    "name": "Leonardo Cavone",
+    "url": "https://github.com/Talentia-Software-OSS"
+  },
+  "repository": {
+    "url": "https://github.com/Talentia-Software-OSS/angular2-prettyjson.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/Talentia-Software-OSS/angular2-prettyjson/issues"
+  },
+  "homepage": "https://github.com/Talentia-Software-OSS/angular2-prettyjson",
+  "readme": "README.md"
 }

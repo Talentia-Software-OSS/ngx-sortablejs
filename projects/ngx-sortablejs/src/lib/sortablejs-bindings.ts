@@ -9,19 +9,19 @@ export class SortablejsBindings {
     this.bindings = bindingTargets.map(target => new SortablejsBinding(target));
   }
 
-  injectIntoEvery(index: number, items: any[]) {
+  injectIntoEvery(index: number | undefined, items: any[]): void {
     this.bindings.forEach((b, i) => b.insert(index, items[i]));
   }
 
-  getFromEvery(index: number) {
+  getFromEvery(index: number | undefined): any[] {
     return this.bindings.map(b => b.get(index));
   }
 
-  extractFromEvery(index: number) {
+  extractFromEvery(index: number | undefined): any[] {
     return this.bindings.map(b => b.remove(index));
   }
 
-  get provided() {
+  get provided(): boolean {
     return !!this.bindings.length;
   }
 
