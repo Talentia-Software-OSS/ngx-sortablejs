@@ -21,7 +21,7 @@ import {SortablejsService} from './sortablejs.service';
 export type SortableData = any | any[];
 
 const getIndexesFromEvent = (event: SortableEvent) => {
-  if (event.hasOwnProperty('newDraggableIndex') && event.hasOwnProperty('oldDraggableIndex')) {
+  if (Object.prototype.hasOwnProperty.call(event, 'newDraggableIndex') && Object.prototype.hasOwnProperty.call(event, 'oldDraggableIndex')) {
     return {
       new: event.newDraggableIndex,
       old: event.oldDraggableIndex,

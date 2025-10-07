@@ -23,11 +23,21 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-sortablejs/**/*.ts",
+              "projects/ngx-sortablejs/**/*.html"
+            ],
+            "eslintConfig": "projects/ngx-sortablejs/eslint.config.js"
+          }
         }
       }
     },
     "demo": {
-      "projectType": "application",      
+      "projectType": "application",
       "root": "projects/demo",
       "sourceRoot": "projects/demo/src",
       "prefix": "app",
@@ -86,6 +96,16 @@
             }
           },
           "defaultConfiguration": "development"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/demo/**/*.ts",
+              "projects/demo/**/*.html"
+            ],
+            "eslintConfig": "projects/demo/eslint.config.js"
+          }
         }
       }
     }
