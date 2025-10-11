@@ -2,7 +2,7 @@
   "name": "@talentia/ngx-sortablejs",
   "title": "Angular sortablejs",
   "description": "Angular wrapper for SortableJS",
-  "version": "11.1.5",
+  "version": "11.1.6",
   "license": "MIT",
   "licenseFilename": "LICENSE",
   "peerDependencies": {

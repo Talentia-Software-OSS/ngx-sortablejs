@@ -1,5 +1,5 @@
 import { SortablejsBinding } from './sortablejs-binding';
-import {SortableData} from './sortablejs.directive';
+import { SortableData } from './sortablejs.directive';
 
 export class SortablejsBindings {
 
@@ -9,19 +9,19 @@ export class SortablejsBindings {
     this.bindings = bindingTargets.map(target => new SortablejsBinding(target));
   }
 
-  injectIntoEvery(index: number | undefined, items: any[]): void {
+  injectIntoEvery(index: number, items: any[]) {
     this.bindings.forEach((b, i) => b.insert(index, items[i]));
   }
 
-  getFromEvery(index: number | undefined): any[] {
+  getFromEvery(index: number) {
     return this.bindings.map(b => b.get(index));
   }
 
-  extractFromEvery(index: number | undefined): any[] {
+  extractFromEvery(index: number) {
     return this.bindings.map(b => b.remove(index));
   }
 
-  get provided(): boolean {
+  get provided() {
     return !!this.bindings.length;
   }
 
