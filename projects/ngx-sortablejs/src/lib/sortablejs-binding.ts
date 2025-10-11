@@ -1,11 +1,11 @@
-import {SortableData} from './sortablejs.directive';
+import { SortableData } from './sortablejs.directive';
 
 export class SortablejsBinding {
 
   constructor(private target: SortableData) {
   }
 
-  insert(index: number | undefined, item: any): void {
+  insert(index: number, item: any) {
     if (this.isFormArray) {
       this.target.insert(index, item);
     } else {
@@ -13,15 +13,11 @@ export class SortablejsBinding {
     }
   }
 
-  get(index: number | undefined): any {
-    if (index === undefined || index === null) {
-      return undefined;
-    }
-    
+  get(index: number) {
     return this.isFormArray ? this.target.at(index) : this.target[index];
   }
 
-  remove(index: number | undefined): any {
+  remove(index: number) {
     let item;
 
     if (this.isFormArray) {
@@ -36,7 +32,7 @@ export class SortablejsBinding {
 
   // we need this to identify that the target is a FormArray
   // we don't want to have a dependency on @angular/forms just for that
-  private get isFormArray(): boolean {
+  private get isFormArray() {
     // just checking for random FormArray methods not available on a standard array
     return !!this.target.at && !!this.target.insert && !!this.target.reset;
   }
