@@ -1,16 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { SortablejsModule } from '@talentia/ngx-sortablejs';
 import {Options} from 'sortablejs';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-child-component',
   templateUrl: './child-component.component.html',
   styleUrls: ['./child-component.component.css'],
+  imports: [
+    SortablejsModule
+  ]
 })
 export class ChildComponentComponent {
 
-  @Input()
-  list?: string[];
+  readonly list = input<string[]>();
 
   options: Options = {
     group: 'test'

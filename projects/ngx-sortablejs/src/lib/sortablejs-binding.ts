@@ -1,4 +1,4 @@
-import { SortableData } from './sortablejs.directive';
+import { SortableData } from "./sortablejs-data";
 
 export class SortablejsBinding {
 

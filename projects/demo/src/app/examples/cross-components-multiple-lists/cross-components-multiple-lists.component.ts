@@ -1,10 +1,16 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { ChildComponentComponent } from './child-component/child-component.component';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-cross-components-multiple-lists',
   templateUrl: './cross-components-multiple-lists.component.html',
   styleUrls: ['./cross-components-multiple-lists.component.css'],
+  imports: [
+    JsonPipe,
+    ChildComponentComponent
+  ]
 })
 export class CrossComponentsMultipleListsComponent {
 
