@@ -1,5 +1,5 @@
 import { SortablejsBinding } from './sortablejs-binding';
-import { SortableData } from './sortablejs.directive';
+import { SortableData } from './sortablejs-data';
 
 export class SortablejsBindings {
 
