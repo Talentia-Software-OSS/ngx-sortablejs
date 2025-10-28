@@ -17,8 +17,7 @@ import Sortable, { Options, SortableEvent } from 'sortablejs';
 import { GLOBALS } from './globals';
 import { SortablejsBindings } from './sortablejs-bindings';
 import { SortablejsService } from './sortablejs.service';
-
-export type SortableData = any | any[];
+import { SortableData } from './sortablejs-data';
 
 const getIndexesFromEvent = (event: SortableEvent) => {
   if (Object.prototype.hasOwnProperty.call(event, 'newDraggableIndex') && Object.prototype.hasOwnProperty.call(event, 'oldDraggableIndex')) {

@@ -1,11 +1,17 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { SortablejsModule } from '@talentia/ngx-sortablejs';
 import {Options} from 'sortablejs';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-multiple-lists',
   templateUrl: './multiple-lists.component.html',
   styleUrls: ['./multiple-lists.component.css'],
+  imports: [
+    JsonPipe,
+    SortablejsModule
+  ]
 })
 export class MultipleListsComponent {
 

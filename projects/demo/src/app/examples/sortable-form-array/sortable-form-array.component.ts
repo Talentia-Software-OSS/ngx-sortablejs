@@ -1,11 +1,18 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { UntypedFormArray, UntypedFormControl } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormArray, UntypedFormControl } from '@angular/forms';
+import { SortablejsModule } from '@talentia/ngx-sortablejs';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-sortable-form-array',
   templateUrl: './sortable-form-array.component.html',
   styleUrls: ['./sortable-form-array.component.css'],
+  imports: [
+    JsonPipe,
+    SortablejsModule,
+    ReactiveFormsModule
+  ]
 })
 export class SortableFormArrayComponent {
 

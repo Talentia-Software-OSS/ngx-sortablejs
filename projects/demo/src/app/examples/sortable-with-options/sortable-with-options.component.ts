@@ -1,14 +1,19 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { SortablejsModule } from '@talentia/ngx-sortablejs';
 import {Options} from 'sortablejs';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-sortable-with-options',
   templateUrl: './sortable-with-options.component.html',
   styleUrls: ['./sortable-with-options.component.css'],
+  imports: [
+    JsonPipe,
+    SortablejsModule
+  ]
 })
 export class SortableWithOptionsComponent {
-
   draggableItems = [
     { draggable: true, text: '1' },
     { draggable: true, text: '2' },
