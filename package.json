@@ -1,6 +1,6 @@
 {
   "name": "ngx-sortablejs",
-  "version": "11.1.7",
+  "version": "11.1.8",
   "scripts": {
     "ng": "ng",
     "build": "npm-run-all -s clean:build build:prod",
@@ -40,8 +40,8 @@
     "zone.js": "0.15.1"
   },
   "devDependencies": {
-    "@angular/build": "19.2.18",
-    "@angular/cli": "19.2.18",
+    "@angular/build": "19.2.19",
+    "@angular/cli": "19.2.19",
     "@angular/compiler-cli": "19.2.15",
     "@types/sortablejs": "1.15.0",
     "angular-eslint": "19.8.1",
