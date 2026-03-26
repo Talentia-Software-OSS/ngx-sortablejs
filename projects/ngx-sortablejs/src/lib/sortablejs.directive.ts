@@ -2,13 +2,12 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Inject,
+  inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   Renderer2,
   SimpleChange,
@@ -51,17 +50,21 @@ export class SortablejsDirective implements OnInit, OnChanges, OnDestroy {
   @Input()
   sortablejsCloneFunction: (item: any) => any;
 
-  private sortableInstance: any;
-
   @Output() sortablejsInit = new EventEmitter();
 
-  constructor(
-    @Optional() @Inject(GLOBALS) private globalConfig: Options,
-    private service: SortablejsService,
-    private element: ElementRef,
-    private zone: NgZone,
-    private renderer: Renderer2,
-  ) {
+  private sortableInstance: any; 
+  private globalConfig: Options | null;
+  private service: SortablejsService;
+  private element: ElementRef;
+  private zone: NgZone;
+  private renderer: Renderer2;
+
+  constructor() {
+    this.globalConfig = inject(GLOBALS, { optional: true });
+    this.service = inject(SortablejsService);
+    this.element = inject(ElementRef);
+    this.zone = inject(NgZone);
+    this.renderer = inject(Renderer2);
   }
 
   ngOnInit() {
