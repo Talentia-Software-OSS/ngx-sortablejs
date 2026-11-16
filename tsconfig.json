@@ -3,13 +3,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
       "@talentia/ngx-sortablejs": [
         "./dist/ngx-sortablejs"
       ]
     },
     "outDir": "./dist/out-tsc",
+    "rootDir": "./projects",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -27,11 +27,7 @@
     "module": "esnext",
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
-    "strictPropertyInitialization": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
