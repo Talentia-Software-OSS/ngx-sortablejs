@@ -5,26 +5,40 @@ Supports standard arrays and Angular `FormArray`.
 
 Previously known as angular-sortablejs.
 
+## Compatibility
+
+| @talentia/ngx-sortablejs | Angular |
+| ------------------------ | ------- |
+| 11.1.10                  | 21.x    |
+| 11.1.9                   | 20.x    |
+| 11.1.7 - 11.1.8          | 19.x    |
+| 11.1.5 - 11.1.6          | 18.x    |
+| 11.1.4                   | 17.x    |
+| 11.1.2 - 11.1.3          | 16.x    |
+| 11.1.1                   | 15.x    |
+
 ## Demo
 
-See the library in action in a [demo](https://sortablejs.github.io/ngx-sortablejs) project (the source is located in `src` directory).
+The demo app is in the `projects/demo` directory: run `npm run start` to build the library and serve the demo on [localhost:4200](http://localhost:4200).
 
 Trees are also supported: [tree with fake root element (\*ngFor once, root can also be hidden anyway)](https://stackblitz.com/edit/angular-o1pq84) or [without (\*ngFor 2 times)](https://stackblitz.com/edit/angular-ptu94s).
 
 ## Installation
 
+Install the library and its peer dependency `sortablejs` (1.15.x):
+
 ```sh
-npm i -S ngx-sortablejs sortablejs
+npm i @talentia/ngx-sortablejs sortablejs@~1.15.0
 npm i -D @types/sortablejs
 ```
 
-You are configured now. If you use Webpack or Angular CLI go to the usage. If you have SystemJS, that's sad, but you can go to the end of the document to find configuration steps there.
-
 ## Usage
 
-First, import `SortablejsModule.forRoot({ /* and here some global settings if needed */ })` into the root module of your application:
+First, import `SortablejsModule.forRoot({ /* and here some global settings if needed */ })` into the root module of your application (or in `importProvidersFrom(...)` when bootstrapping with `bootstrapApplication`):
 
 ```typescript
+import { SortablejsModule } from '@talentia/ngx-sortablejs';
+
 imports: [
   // ...
   SortablejsModule.forRoot({ animation: 150 }),
@@ -134,7 +148,7 @@ The only thing which should be done is assigning the `group` option to the both 
 
 ```typescript
 import { Component } from '@angular/core';
-import { SortablejsOptions } from 'ngx-sortablejs';
+import { Options } from 'sortablejs';
 
 @Component({
     selector: 'my-app',
@@ -154,7 +168,7 @@ export class AppComponent {
    items1 = [1, 2, 3, 4, 5];
    items2 = ['a', 'b', 'c', 'd', 'e'];
 
-   options: SortablejsOptions = {
+   options: Options = {
      group: 'test'
    };
 }
@@ -168,7 +182,7 @@ If you want to clone the item being sorted in a different manner, you can provid
 
 ```typescript
 import { Component } from '@angular/core';
-import { SortablejsOptions } from 'ngx-sortablejs';
+import { Options } from 'sortablejs';
 
 @Component({
     selector: 'my-app',
@@ -185,6 +199,12 @@ import { SortablejsOptions } from 'ngx-sortablejs';
     `
 })
 export class AppComponent {
+  items1 = [1, 2, 3, 4, 5];
+  items2 = ['a', 'b', 'c', 'd', 'e'];
+
+  options: Options = {
+    group: { name: 'test', pull: 'clone' }
+  };
 
   myCloneImplementation = (item) => {
     return item; // this is what happens if sortablejsCloneFunction is not provided. Add your stuff here
@@ -193,12 +213,11 @@ export class AppComponent {
 }
 ```
 
-### Bind events inside Angular zone
+### Change detection
 
-By default, the boolean parameter **runInsideAngular** is set to **false**.
-This means that the initial binding of all mouse events of the component will be set so that they **will not** trigger Angular's change detection.
+The event handlers passed in the options (`onUpdate`, `onAdd`, ...) are always called inside the Angular zone (`NgZone.run`), so the changes they make are picked up by change detection.
 
-If this parameter is set to true, then for large components - with a lot of data bindings - the UI will function in a staggered and lagging way (mainly when dragging items), while every event will trigger the change detection (which might be needed in some special edge cases).
+The library is tested with zone.js-based change detection: since Angular 21 new applications are zoneless by default, add `provideZoneChangeDetection()` to the providers of `bootstrapApplication` (as the demo does).
 
 ### Configure the options globally
 
@@ -270,9 +289,9 @@ Important: the original `onAdd` event happens before the `onRemove` event becaus
 
 ## Further help
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.14.
+This project currently uses [Angular CLI](https://github.com/angular/angular-cli) version 21.2.25.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 ## Reference
 
